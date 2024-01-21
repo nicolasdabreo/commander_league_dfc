@@ -1,15 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  class="h-full scroll-smooth bg-white dark:bg-zinc-900 antialiased [font-feature-settings:'ss01'] text-zinc-50"
+  style="scrollbar-gutter: stable;"
+>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello from Fly</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-200">
-    <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold text-blue-500">Hello from Fly</h1>
-        <h2 class="text-1xl font-bold text-blue-700"></h2>
+  <body class="">
+    <div class="mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
+
+      <div class="mx-auto lg:mx-0">
+        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">DFC Commander League</h1>
+        <p class="mb-6 mt-4 text-1xl leading-8 text-gray-300">Season 1</p>
+      </div>
+
+
+      <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+      <div class="mx-auto space-y-6">
+        <!-- Content goes here -->
+        <ul role="list" class="space-y-4">
+          <li class="shadow overflow-hidden rounded-md">
+            <a href="/players/1" class="cursor-pointer flex focus:ring-2 ring-indigo-600 ring-1 ring-gray-300 text-zinc-300 hover:text-zinc-100 border border-zinc-400 hover:border-zinc-300">
+
+              <span class="w-20 truncate justify-center py-6 inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-xl">1st</span>
+              <div class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 ring-1 ring-inset ring-gray-300 leading-6">
+                <h3 class="pl-8 flex h-full items-center text-2xl">Zach DFC</h3>
+              </div>
+            </a>
+          </li>
+
+          <li class="flex shadow overflow-hidden rounded-md">
+            <span class="w-20 truncate justify-center py-6 inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-xl">2nd</span>
+            <div class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 leading-6">
+              <h3 class="pl-8 flex h-full items-center text-2xl">Nick</h3>
+            </div>
+          </li>
+        
+          <!-- More items... -->
+        </ul>
+
+        <a href="/results/new" class="mr-4 text-zinc-400 hover:text-zinc-300 border border-zinc-400 hover:border-zinc-300 h-10 px-4 py-2 text-base truncate inline-flex items-center font-semibold no-underline border border-transparent border border-zinc-300 rounded-md shadow-lg disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
+          Post result
+        </a>
+
+        <a href="/players/new" class="text-zinc-400 hover:text-zinc-300 border border-zinc-400 hover:border-zinc-300 h-10 px-4 py-2 text-base truncate inline-flex items-center font-semibold no-underline border border-transparent border border-zinc-300 rounded-md shadow-lg disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
+          Add player
+        </a>
+      </div>
     </div>
+
+
   </body>
 </html>

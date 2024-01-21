@@ -47,6 +47,8 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", renderIndex)
+	router.GET("/results/new", renderNewResultForm)
+	router.GET("/players/new", renderNewPlayerForm)
 
 	// Define your routes here
 
@@ -55,4 +57,12 @@ func main() {
 
 func renderIndex(c *gin.Context) {
 	c.HTML(200, "index.tmpl.html", gin.H{})
+}
+
+func renderNewPlayerForm(c *gin.Context) {
+	c.HTML(200, "new_player.tmpl.html", gin.H{})
+}
+
+func renderNewResultForm(c *gin.Context) {
+	c.HTML(200, "new_result.tmpl.html", gin.H{})
 }
