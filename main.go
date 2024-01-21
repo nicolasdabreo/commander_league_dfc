@@ -2,7 +2,8 @@ package main
 
 import (
 	"embed"
-	"html/template"
+	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -13,8 +14,6 @@ import (
 var resources embed.FS
 
 var db *gorm.DB
-
-var t = template.Must(template.ParseFS(resources, "templates/*"))
 
 type Player struct {
 	gorm.Model
@@ -30,19 +29,29 @@ func init() {
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&Player{}) // replace YourModel with your actual model
+	db.AutoMigrate(&Player{})
 }
 
 func main() {
 	defer db.Close()
 
+	absPath, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Absolute Path:", absPath)
+
 	router := gin.Default()
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "Hello, Gin!"})
-	})
+	router.LoadHTMLGlob("templates/*")
+
+	router.GET("/", renderIndex)
 
 	// Define your routes here
 
 	router.Run(":8080")
+}
+
+func renderIndex(c *gin.Context) {
+	c.HTML(200, "index.tmpl.html", gin.H{})
 }
