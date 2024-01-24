@@ -11,8 +11,61 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="">
-    <div class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
-      PLAYER
+    <div class="mx-auto max-w-lg p-4 sm:p-6 lg:p-8">
+      <form>
+        <div class="flex flex-col mt-10 space-y-10">
+          <h1 class="text-lg font-bold tracking-tight text-white sm:text-xl">New Player</h1>
+
+          <div class="">
+            <label for="name" class="block text-sm font-medium leading-6">Player name</label>
+            <div class="mt-2">
+              <input id="name" name="name" type="name" autocomplete="name" placeholder="Lucky" class="block w-full px-4 bg-zinc-800 py-2 rounded-md border-0 border-zinc-700 py-1.5 shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+        
+        <fieldset>
+          <legend class="text-sm font-semibold leading-6">Starter deck</legend>
+          <p class="mt-1 text-sm leading-6 text-zinc-400">This cannot be changed later</p>
+
+          <div class="mt-6 space-y-6">
+            <div class="">
+              <label for="token-triumph" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
+                <input id="token-triumph" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                Token Triumph
+              </label>
+            </div>
+            <div class="">
+              <label for="grave-danger" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
+                <input id="grave-danger" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                Grave Danger
+              </label>
+            </div>
+            <div class="">
+              <label for="dragonic-destruction" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
+                <input id="dragonic-destruction" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                Draconic Destruction
+              </label>
+            </div>
+            <div class="">
+              <label for="chaos-incarnate" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
+                <input id="chaos-incarnate" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                Chaos Incarnate
+              </label>
+            </div>
+            <div class="">
+              <label for="first-flight" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
+                <input id="first-flight" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                First Flight
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="flex justify-center text-zinc-400 hover:text-zinc-300 border border-zinc-400 hover:border-zinc-300 h-10 px-4 py-2 text-base truncate inline-flex items-center font-semibold no-underline border border-transparent border border-zinc-300 rounded-md shadow-lg disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
+          Post result
+        </button>
+      </div>
+      </form>
     </div>
   </body>
 </html>
