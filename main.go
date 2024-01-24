@@ -20,6 +20,21 @@ type Player struct {
 	Deck string `gorm:"not null"`
 }
 
+type Result struct {
+	gorm.Model
+	PodSize                int  `gorm:"not null;"`
+	Place                  int  `gorm:"not null;"`
+	TheCouncilOfWizards    bool `gorm:"default:false"`
+	DavidAndTheGoliaths    bool `gorm:"default:false"`
+	Untouchable            bool `gorm:"default:false"`
+	Cleave                 bool `gorm:"default:false"`
+	ItsFreeRealEstate      bool `gorm:"default:false"`
+	IAmTimmy               bool `gorm:"default:false"`
+	BigBiggerHuge          bool `gorm:"default:false"`
+	CloseButNoCigar        bool `gorm:"default:false"`
+	JustAsGarfieldIntended bool `gorm:"default:false"`
+}
+
 func init() {
 	var err error
 
@@ -30,6 +45,7 @@ func init() {
 
 	// Migrate the schema
 	db.AutoMigrate(&Player{})
+	db.AutoMigrate(&Result{})
 }
 
 func main() {
@@ -43,6 +59,7 @@ func main() {
 	router.GET("/players/new", newPlayerHandler)
 	router.POST("/players", createPlayerHandler)
 	router.GET("/results/new", newResultHandler)
+	router.POST("/results", createResultHandler)
 
 	// Define your routes here
 
@@ -80,6 +97,50 @@ func createPlayerHandler(c *gin.Context) {
 	newPlayer := Player{Name: form.Name, Deck: form.Deck}
 	if err := db.Create(&newPlayer).Error; err != nil {
 		c.HTML(http.StatusInternalServerError, "new_player.tmpl.html", gin.H{"error": "Failed to create player"})
+		return
+	}
+
+	// Redirect to the index page or another success page
+	c.Redirect(http.StatusSeeOther, "/")
+}
+
+func createResultHandler(c *gin.Context) {
+	// Parse form data
+	var form struct {
+		PodSize                int  `form:"pod_size" binding:"required"`
+		Place                  int  `form:"place" binding:"required"`
+		TheCouncilOfWizards    bool `form:"the_council_of_wizards"`
+		DavidAndTheGoliaths    bool `form:"david_and_the_goliaths"`
+		Untouchable            bool `form:"untouchable"`
+		Cleave                 bool `form:"cleave"`
+		ItsFreeRealEstate      bool `form:"its_free_real_estate"`
+		IAmTimmy               bool `form:"i_am_timmy"`
+		BigBiggerHuge          bool `form:"big_bigger_huge"`
+		CloseButNoCigar        bool `form:"close_but_no_cigar"`
+		JustAsGarfieldIntended bool `form:"just_as_garfield_intended"`
+	}
+
+	if err := c.ShouldBind(&form); err != nil {
+		c.HTML(http.StatusBadRequest, "new_result.tmpl.html", gin.H{"error": err.Error()})
+		return
+	}
+
+	// Create a new result
+	newResult := Result{
+		Place:                  form.Place,
+		TheCouncilOfWizards:    form.TheCouncilOfWizards,
+		DavidAndTheGoliaths:    form.DavidAndTheGoliaths,
+		Untouchable:            form.Untouchable,
+		Cleave:                 form.Cleave,
+		ItsFreeRealEstate:      form.ItsFreeRealEstate,
+		IAmTimmy:               form.IAmTimmy,
+		BigBiggerHuge:          form.BigBiggerHuge,
+		CloseButNoCigar:        form.CloseButNoCigar,
+		JustAsGarfieldIntended: form.JustAsGarfieldIntended,
+	}
+
+	if err := db.Create(&newResult).Error; err != nil {
+		c.HTML(http.StatusInternalServerError, "new_result.tmpl.html", gin.H{"error": "Failed to create result"})
 		return
 	}
 
