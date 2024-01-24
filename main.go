@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -46,17 +47,18 @@ func main() {
 
 	router.LoadHTMLGlob("templates/*")
 
-	router.GET("/", renderIndex)
-	router.GET("/results/new", renderNewResultForm)
+	router.GET("/", renderPlayerLeaderboard)
 	router.GET("/players/new", renderNewPlayerForm)
+	router.POST("/players", createPlayer)
+	router.GET("/results/new", renderNewResultForm)
 
 	// Define your routes here
 
 	router.Run(":8080")
 }
 
-func renderIndex(c *gin.Context) {
-	c.HTML(200, "index.tmpl.html", gin.H{})
+func renderPlayerLeaderboard(c *gin.Context) {
+	c.HTML(200, "player_leaderboard.tmpl.html", gin.H{})
 }
 
 func renderNewPlayerForm(c *gin.Context) {
@@ -65,4 +67,23 @@ func renderNewPlayerForm(c *gin.Context) {
 
 func renderNewResultForm(c *gin.Context) {
 	c.HTML(200, "new_result.tmpl.html", gin.H{})
+}
+
+func createPlayer(c *gin.Context) {
+	var player Player
+
+	log.Println(player)
+
+	if err := c.ShouldBindJSON(&player); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Create the player in the database
+	if err := db.Create(&player).Error; err != nil {
+		c.JSON(500, gin.H{"error": "Failed to create player"})
+		return
+	}
+
+	c.JSON(201, player)
 }
