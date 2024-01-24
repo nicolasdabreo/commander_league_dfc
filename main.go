@@ -2,9 +2,7 @@ package main
 
 import (
 	"embed"
-	"fmt"
-	"log"
-	"os"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -37,53 +35,54 @@ func init() {
 func main() {
 	defer db.Close()
 
-	absPath, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Absolute Path:", absPath)
-
 	router := gin.Default()
 
 	router.LoadHTMLGlob("templates/*")
 
-	router.GET("/", renderPlayerLeaderboard)
-	router.GET("/players/new", renderNewPlayerForm)
-	router.POST("/players", createPlayer)
-	router.GET("/results/new", renderNewResultForm)
+	router.GET("/", leaderboardHandler)
+	router.GET("/players/new", newPlayerHandler)
+	router.POST("/players", createPlayerHandler)
+	router.GET("/results/new", newResultHandler)
 
 	// Define your routes here
 
 	router.Run(":8080")
 }
 
-func renderPlayerLeaderboard(c *gin.Context) {
-	c.HTML(200, "player_leaderboard.tmpl.html", gin.H{})
+func leaderboardHandler(c *gin.Context) {
+	var players []Player
+	results := db.Find(&players)
+
+	c.HTML(200, "player_leaderboard.tmpl.html", gin.H{"Players": results.Value})
 }
 
-func renderNewPlayerForm(c *gin.Context) {
+func newPlayerHandler(c *gin.Context) {
 	c.HTML(200, "new_player.tmpl.html", gin.H{})
 }
 
-func renderNewResultForm(c *gin.Context) {
+func newResultHandler(c *gin.Context) {
 	c.HTML(200, "new_result.tmpl.html", gin.H{})
 }
 
-func createPlayer(c *gin.Context) {
-	var player Player
+func createPlayerHandler(c *gin.Context) {
+	// Parse form data
+	var form struct {
+		Name string `form:"name" binding:"required"`
+		Deck string `form:"deck" binding:"required,oneof=tokens dragons goad flying zombies"`
+	}
 
-	log.Println(player)
-
-	if err := c.ShouldBindJSON(&player); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+	if err := c.ShouldBind(&form); err != nil {
+		c.HTML(http.StatusBadRequest, "new_player.tmpl.html", gin.H{"error": err.Error()})
 		return
 	}
 
-	// Create the player in the database
-	if err := db.Create(&player).Error; err != nil {
-		c.JSON(500, gin.H{"error": "Failed to create player"})
+	// Create a new player
+	newPlayer := Player{Name: form.Name, Deck: form.Deck}
+	if err := db.Create(&newPlayer).Error; err != nil {
+		c.HTML(http.StatusInternalServerError, "new_player.tmpl.html", gin.H{"error": "Failed to create player"})
 		return
 	}
 
-	c.JSON(201, player)
+	// Redirect to the index page or another success page
+	c.Redirect(http.StatusSeeOther, "/")
 }

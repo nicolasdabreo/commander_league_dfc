@@ -16,10 +16,25 @@
         <div class="flex flex-col mt-10 space-y-10">
           <h1 class="text-lg font-bold tracking-tight text-white sm:text-xl">New Player</h1>
 
+          {{ if .error }}
+          <div class="rounded-md bg-red-50 p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">{{ .error }}</h3>
+              </div>
+            </div>
+          </div>
+          {{ end }}
+
           <div class="">
             <label for="name" class="block text-sm font-medium leading-6">Player name</label>
             <div class="mt-2">
-              <input id="name" name="name" type="name" autocomplete="name" placeholder="Lucky" class="block w-full px-4 bg-zinc-800 py-2 rounded-md border-0 border-zinc-700 py-1.5 shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Name..." class="block w-full px-4 bg-zinc-800 py-2 rounded-md border-0 border-zinc-700 py-1.5 shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
           </div>
         
@@ -30,31 +45,31 @@
           <div class="mt-6 space-y-6">
             <div class="">
               <label for="token-triumph" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
-                <input id="token-triumph" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                <input value="tokens" id="token-triumph" name="deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
                 Token Triumph
               </label>
             </div>
             <div class="">
               <label for="grave-danger" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
-                <input id="grave-danger" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                <input value="zombies" id="grave-danger" name="deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
                 Grave Danger
               </label>
             </div>
             <div class="">
               <label for="dragonic-destruction" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
-                <input id="dragonic-destruction" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                <input value="dragons" id="dragonic-destruction" name="deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
                 Draconic Destruction
               </label>
             </div>
             <div class="">
               <label for="chaos-incarnate" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
-                <input id="chaos-incarnate" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                <input value="goad" id="chaos-incarnate" name="deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
                 Chaos Incarnate
               </label>
             </div>
             <div class="">
               <label for="first-flight" class="cursor-pointer flex items-center gap-x-3 block text-sm font-medium leading-6">
-                <input id="first-flight" name="starter-deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
+                <input value="flying" id="first-flight" name="deck" type="radio" class="h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600">
                 First Flight
               </label>
             </div>
@@ -62,7 +77,7 @@
         </fieldset>
 
         <button type="submit" class="flex justify-center text-zinc-400 hover:text-zinc-300 border border-zinc-400 hover:border-zinc-300 h-10 px-4 py-2 text-base truncate inline-flex items-center font-semibold no-underline border border-transparent border border-zinc-300 rounded-md shadow-lg disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
-          Post result
+          Create player
         </button>
       </div>
       </form>

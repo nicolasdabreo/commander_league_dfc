@@ -20,34 +20,37 @@
 
       <div class="mx-auto space-y-6">
 
-        <ul role="list" class="divide-y divide-zinc-100">
-          <li class="shadow-lg group relative rounded-md py-5 transition bg-zinc-800 hover:scale-105 hover:bg-zinc-800">
-            <div class="px-4 sm:px-6 lg:px-8">
-              <div class="mx-auto flex max-w-4xl justify-between gap-x-12 px-2">
-                <div class="flex min-w-0 gap-x-6">
-                  <span class="truncate justify-center inline-flex items-center text-base">1st</span>
-                  <div class="min-w-0 flex-auto">
-                    <p class="text-base font-bold leading-6">
-                      <a href="#">
-                        <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                        Placeholder
-                      </a>
-                    </p>
-                    <p class="mt-1 flex text-xs leading-5 text-zinc-400 truncate">
-                      Deck name
-                    </p>
+        <ul role="list" class="space-y-3">
+          
+          {{ range $index, $player := .Players }}
+            <li class="shadow-lg group relative rounded-md py-5 transition bg-zinc-800 hover:scale-105 hover:bg-zinc-800">
+              <div class="px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto flex max-w-4xl justify-between gap-x-12 px-2">
+                  <div class="flex min-w-0 gap-x-6">
+                    <span class="truncate justify-center inline-flex items-center text-base">{{ $index }}</span>
+                    <div class="min-w-0 flex-auto">
+                      <p class="text-base font-bold leading-6">
+                        <a href="#">
+                          <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                          {{ $player.Name }}
+                        </a>
+                      </p>
+                      <p class="mt-1 flex text-xs leading-5 text-zinc-400 truncate">
+                        {{ $player.Deck }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex shrink-0 items-center font-semibold text-sm">
+                    <!-- <div class="hidden sm:flex sm:flex-col sm:items-end">
+                      <p class="text-sm leading-6 text-zinc-900">Co-Founder / CEO</p>
+                      <p class="mt-1 text-xs leading-5 text-zinc-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p>
+                    </div> -->
+                    {{$index}}00
                   </div>
                 </div>
-                <div class="flex shrink-0 items-center font-semibold text-sm">
-                  <!-- <div class="hidden sm:flex sm:flex-col sm:items-end">
-                    <p class="text-sm leading-6 text-zinc-900">Co-Founder / CEO</p>
-                    <p class="mt-1 text-xs leading-5 text-zinc-500">Last seen <time datetime="2023-01-23T13:23Z">3h ago</time></p>
-                  </div> -->
-                  100
-                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          {{ end }}
         </ul>
 
         <a href="/results/new" class="mr-4 text-zinc-400 hover:text-zinc-300 border border-zinc-400 hover:border-zinc-300 h-10 px-4 py-2 text-base truncate inline-flex items-center font-semibold no-underline border border-transparent border border-zinc-300 rounded-md shadow-lg disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
