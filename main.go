@@ -57,6 +57,7 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", leaderboardHandler)
+	router.GET("/players/:id", showPlayerHandler)
 	router.GET("/players/new", newPlayerHandler)
 	router.POST("/players", createPlayerHandler)
 	router.GET("/results/new", newResultHandler)
@@ -104,6 +105,19 @@ func createPlayerHandler(c *gin.Context) {
 
 	// Redirect to the index page or another success page
 	c.Redirect(http.StatusSeeOther, "/")
+}
+
+func showPlayerHandler(c *gin.Context) {
+	playerID := c.Param("id")
+	var player Player
+	result := db.Where("id = ?", playerID).First(&player)
+
+	if result.Error != nil {
+		c.HTML(404, "not_found.tmpl.html", nil)
+		return
+	}
+
+	c.HTML(200, "show_player.tmpl.html", gin.H{"Player": result.Value})
 }
 
 func createResultHandler(c *gin.Context) {
