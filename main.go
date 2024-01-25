@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -119,8 +118,6 @@ func showPlayerHandler(c *gin.Context) {
 	playerID := c.Param("id")
 	var player Player
 	result := db.Preload("Results").Where("id = ?", playerID).First(&player)
-
-	log.Println(result.Value)
 
 	if result.Error != nil {
 		c.HTML(404, "not_found.tmpl.html", nil)
