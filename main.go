@@ -38,7 +38,7 @@ type Result struct {
 func init() {
 	var err error
 
-	db, err = gorm.Open("sqlite3", "dfc.db")
+	db, err = gorm.Open("sqlite3", "data/dfc.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
