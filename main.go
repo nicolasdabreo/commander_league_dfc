@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,7 +27,7 @@ type Result struct {
 	PlayerID uint
 	Player   Player `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 
-	PodSize                int  `gorm:"not null;"`
+	PodSize                int  `gorm:"not null;check:value >= 3;check:value <= 6;"`
 	Place                  int  `gorm:"not null;"`
 	TheCouncilOfWizards    bool `gorm:"default:false"`
 	DavidAndTheGoliaths    bool `gorm:"default:false"`
@@ -117,7 +118,9 @@ func createPlayerHandler(c *gin.Context) {
 func showPlayerHandler(c *gin.Context) {
 	playerID := c.Param("id")
 	var player Player
-	result := db.Where("id = ?", playerID).First(&player)
+	result := db.Preload("Results").Where("id = ?", playerID).First(&player)
+
+	log.Println(result.Value)
 
 	if result.Error != nil {
 		c.HTML(404, "not_found.tmpl.html", nil)
@@ -151,7 +154,9 @@ func createResultHandler(c *gin.Context) {
 
 	// Create a new result
 	newResult := Result{
+		PlayerID:               form.PlayerID,
 		Place:                  form.Place,
+		PodSize:                form.PodSize,
 		TheCouncilOfWizards:    form.TheCouncilOfWizards,
 		DavidAndTheGoliaths:    form.DavidAndTheGoliaths,
 		Untouchable:            form.Untouchable,
