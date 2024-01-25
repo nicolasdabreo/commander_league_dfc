@@ -53,6 +53,7 @@ func main() {
 
 	router := gin.Default()
 
+	router.Static("/assets", "./assets")
 	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", leaderboardHandler)
@@ -60,6 +61,7 @@ func main() {
 	router.POST("/players", createPlayerHandler)
 	router.GET("/results/new", newResultHandler)
 	router.POST("/results", createResultHandler)
+	router.GET("/downloads/rulepack", rulepackHandler)
 
 	// Define your routes here
 
@@ -146,4 +148,16 @@ func createResultHandler(c *gin.Context) {
 
 	// Redirect to the index page or another success page
 	c.Redirect(http.StatusSeeOther, "/")
+}
+
+func rulepackHandler(c *gin.Context) {
+	targetPath := "./assets/images/commander_league_rulepack.pdf"
+
+	//Seems this headers needed for some browsers (for example without this headers Chrome will download files as txt)
+	c.Header("Content-Description", "File Transfer")
+	c.Header("Content-Transfer-Encoding", "binary")
+	c.Header("Content-Disposition", "attachment; filename=commander_league_rulepack.pdf")
+	c.Header("Content-Type", "application/octet-stream")
+
+	c.FileAttachment(targetPath, "commander_league_rulepack.pdf")
 }
