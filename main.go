@@ -16,12 +16,16 @@ var db *gorm.DB
 
 type Player struct {
 	gorm.Model
-	Name string `gorm:"unique;not null"`
-	Deck string `gorm:"not null"`
+	Name    string `gorm:"unique;not null"`
+	Deck    string `gorm:"not null"`
+	Results []Result
 }
 
 type Result struct {
 	gorm.Model
+	PlayerID uint
+	Player   Player `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+
 	PodSize                int  `gorm:"not null;"`
 	Place                  int  `gorm:"not null;"`
 	TheCouncilOfWizards    bool `gorm:"default:false"`
@@ -81,7 +85,10 @@ func newPlayerHandler(c *gin.Context) {
 }
 
 func newResultHandler(c *gin.Context) {
-	c.HTML(200, "new_result.tmpl.html", gin.H{})
+	var players []Player
+	results := db.Find(&players)
+
+	c.HTML(200, "new_result.tmpl.html", gin.H{"Players": results.Value})
 }
 
 func createPlayerHandler(c *gin.Context) {
@@ -123,6 +130,7 @@ func showPlayerHandler(c *gin.Context) {
 func createResultHandler(c *gin.Context) {
 	// Parse form data
 	var form struct {
+		PlayerID               uint `form:"player_id" binding:"required"`
 		PodSize                int  `form:"pod_size" binding:"required"`
 		Place                  int  `form:"place" binding:"required"`
 		TheCouncilOfWizards    bool `form:"the_council_of_wizards"`

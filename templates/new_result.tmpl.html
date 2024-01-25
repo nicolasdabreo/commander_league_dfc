@@ -32,6 +32,20 @@
             </div>
           {{ end }}
 
+          <div class="">
+            <label for="name" class="block text-sm font-medium leading-6">Player</label>
+            <p class="mb-2 text-sm leading-6 text-zinc-400">If you're not on the player list, <a href="/players/new" class="font-semibold underline text-indigo-500 hover:text-indigo-400">you can add yourself here</a></p>
+            
+            <div class="mt-2">
+              <select id="player" name="player_id" class="block w-full px-4 bg-zinc-800 rounded-md border-0 border-zinc-700 py-3 shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <option disabled selected value> -- select an option -- </option>
+                {{ range .Players }}
+                  <option value="{{ .ID }}">{{ .Name }}</option>
+                {{ end }}
+              </select>
+            </div>
+          </div>
+
           <div>
             <fieldset class="mt-2">
               <legend class="text-sm font-semibold leading-6">Pod size</legend>
