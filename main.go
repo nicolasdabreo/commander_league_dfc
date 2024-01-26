@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"net/http"
+	"sort"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -19,6 +20,8 @@ type Player struct {
 	Name    string `gorm:"unique;not null"`
 	Deck    string `gorm:"not null"`
 	Results []Result
+
+	TotalPoints int `gorm:"-"`
 }
 
 type Result struct {
@@ -37,6 +40,10 @@ type Result struct {
 	BigBiggerHuge          bool `gorm:"default:false"`
 	CloseButNoCigar        bool `gorm:"default:false"`
 	JustAsGarfieldIntended bool `gorm:"default:false"`
+
+	Points      int `gorm:"-"`
+	BonusPoints int `gorm:"-"`
+	TotalPoints int `gorm:"-"`
 }
 
 func init() {
@@ -75,7 +82,27 @@ func main() {
 
 func leaderboardHandler(c *gin.Context) {
 	var players []Player
-	results := db.Find(&players)
+	results := db.Preload("Results").Find(&players)
+
+	for i := range players {
+		for j := range players[i].Results {
+			points := calculatePoints(players[i].Results[j])
+			totalPoints := points
+			players[i].Results[j].TotalPoints = totalPoints
+		}
+
+		var playerTotalPoints int
+
+		for j := range players[i].Results {
+			playerTotalPoints += players[i].Results[j].TotalPoints
+		}
+
+		players[i].TotalPoints = playerTotalPoints
+	}
+
+	sort.Slice(players, func(i, j int) bool {
+		return players[i].TotalPoints > players[j].TotalPoints
+	})
 
 	c.HTML(200, "player_leaderboard.tmpl.html", gin.H{"Players": results.Value})
 }
@@ -122,6 +149,12 @@ func showPlayerHandler(c *gin.Context) {
 	if result.Error != nil {
 		c.HTML(404, "not_found.tmpl.html", nil)
 		return
+	}
+
+	for j := range player.Results {
+		points := calculatePoints(player.Results[j])
+		totalPoints := points
+		player.Results[j].TotalPoints = totalPoints
 	}
 
 	c.HTML(200, "show_player.tmpl.html", gin.H{"Player": result.Value})
@@ -184,4 +217,23 @@ func rulepackHandler(c *gin.Context) {
 	c.Header("Content-Type", "application/octet-stream")
 
 	c.FileAttachment(targetPath, "commander_league_rulepack.pdf")
+}
+
+var pointsMap = map[int]map[int]int{
+	3: {1: 4, 2: 3, 3: 2},
+	4: {1: 5, 2: 4, 3: 3, 4: 2},
+	5: {1: 6, 2: 5, 3: 4, 4: 3, 5: 2},
+	// Add more entries for other PodSizes
+}
+
+func calculatePoints(result Result) int {
+	var points int
+
+	if podSizePoints, ok := pointsMap[result.PodSize]; ok {
+		if totalPoints, ok := podSizePoints[result.Place]; ok {
+			points = totalPoints
+		}
+	}
+
+	return points
 }
