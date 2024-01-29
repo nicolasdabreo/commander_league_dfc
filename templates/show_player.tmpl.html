@@ -22,7 +22,7 @@
                 <h3 class="flex-auto truncate text-sm font-semibold leading-6 text-white">{{ .TotalPoints }} points</h3>
                 <time datetime="2023-01-23T11:00" class="flex-none text-xs text-gray-500">{{ .CreatedAt.Format "02-01-2006" }}</time>
               </div>
-              <p class="mt-3 text-sm text-gray-500">Came <span class="text-gray-400">{{ .Place }}th</span> place in <span class="text-gray-400">{{ .PodSize }}</span> pod (earning <span class="text-gray-400">{{ .BonusPoints }}</span> bonus points)</p>
+              <p class="mt-3 text-sm text-gray-500">Came <span class="text-gray-400">{{ .Place }}th</span> place in <span class="text-gray-400">{{ .PodSize }} player</span> pod (earning <span class="text-gray-400">{{ .BonusPoints }}</span> bonus points)</p>
             </li>
           {{ end }}
         </ul>
