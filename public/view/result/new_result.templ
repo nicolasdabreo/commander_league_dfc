@@ -1,0 +1,176 @@
+package result
+
+import (
+	"dfc/public/component"
+)
+
+templ NewResult() {
+	@component.Layout() {
+		<div class="max-w-lg p-4 mx-auto my-10 sm:p-6 lg:p-8">
+			<h1 class="text-lg font-bold tracking-tight text-white sm:text-xl">New Result</h1>
+			<form method="post" action="/results">
+				<div class="flex flex-col mt-10 space-y-10">
+					<div class="">
+						<label for="name" class="block text-sm font-medium leading-6">Player</label>
+						<p class="mb-2 text-sm leading-6 text-zinc-400">If you're not on the player list, <a href="/players/new" class="font-semibold text-indigo-500 underline hover:text-indigo-400">you can add yourself here</a></p>
+						<div class="mt-2">
+							<select id="player" name="player_id" class="block w-full px-4 py-3 border-0 rounded-md shadow-sm bg-zinc-800 border-zinc-700 placeholder:text-zinc-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+								<option disabled selected value>-- select an option -- </option>
+								<option value="id">name</option>
+							</select>
+						</div>
+					</div>
+					<div>
+						<fieldset class="mt-2">
+							<legend class="text-sm font-semibold leading-6">Pod size</legend>
+							<p class="mb-2 text-sm leading-6 text-zinc-400">Decides how many points you earn</p>
+							<div class="grid grid-cols-3 gap-3">
+								<div class="w-full">
+									<input id="pod-size-3" type="radio" name="pod_size" value="3" class="sr-only peer" aria-labelledby="pod-size-0-label"/>
+									<label for="pod-size-3" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">3</label>
+								</div>
+								<div class="w-full">
+									<input id="pod-size-4" type="radio" name="pod_size" value="4" class="sr-only peer" aria-labelledby="pod-size-0-label"/>
+									<label for="pod-size-4" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">4</label>
+								</div>
+								<div class="w-full">
+									<input id="pod-size-5" type="radio" name="pod_size" value="5" class="sr-only peer" aria-labelledby="pod-size-0-label"/>
+									<label for="pod-size-5" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">5</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div>
+						<fieldset class="mt-2">
+							<legend class="mb-2 text-sm font-semibold leading-6">Where you placed in your pod</legend>
+							<div class="grid grid-cols-3 gap-3">
+								<div class="w-full">
+									<input id="place-1" type="radio" name="place" value="1" class="sr-only peer"/>
+									<label for="place-1" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">1st</label>
+								</div>
+								<div class="w-full">
+									<input id="place-2" type="radio" name="place" value="2" class="sr-only peer"/>
+									<label for="place-2" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">2nd</label>
+								</div>
+								<div class="w-full">
+									<input id="place-3" type="radio" name="place" value="3" class="sr-only peer"/>
+									<label for="place-3" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">3rd</label>
+								</div>
+								<div class="w-full">
+									<input id="place-4" type="radio" name="place" value="4" class="sr-only peer"/>
+									<label for="place-4" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">4th</label>
+								</div>
+								<div class="w-full">
+									<input id="place-5" type="radio" name="place" value="5" class="sr-only peer"/>
+									<label for="place-5" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">5th</label>
+								</div>
+								<div class="w-full">
+									<input id="place-6" type="radio" name="place" value="6" class="sr-only peer"/>
+									<label for="place-6" class="flex items-center justify-center px-3 py-3 text-sm font-semibold uppercase rounded-md cursor-pointer peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:hover:bg-indigo-500 bg-zinc-800 sm:flex-1 focus:outline-none">Scooped</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<fieldset>
+						<legend class="text-sm font-semibold leading-6">Bonus points</legend>
+						<div class="mt-6 space-y-6">
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="a_council_of_wizards" name="a_council_of_wizards" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="a_council_of_wizards" class="font-medium">A council of wizards</label>
+									<p class="text-zinc-400">Every player in the pod used a league deck.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="david_and_the_goliaths" name="david_and_the_goliaths" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="david_and_the_goliaths" class="font-medium">David and the Goliaths</label>
+									<p class="text-zinc-400">Every other player in the pod is not using a league deck.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="untouchable" name="untouchable" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="untouchable" class="font-medium">Untouchable</label>
+									<p class="text-zinc-400">Won the game without taking a single point of damage.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="cleave" name="cleave" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="cleave" class="font-medium">Cleave</label>
+									<p class="text-zinc-400">Removed two other players in a single turn. (A player scooping does not count)</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="its_free_real_estate" name="its_free_real_estate" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="its_free_real_estate" class="font-medium">Its Free Real Estate</label>
+									<p class="text-zinc-400">Had more than 45 permanents in play at the same time.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="guess_whos_back" name="guess_whos_back" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="guess_whos_back" class="font-medium">Guess Who's Back</label>
+									<p class="text-zinc-400">Casted your commander at least 5 times.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="i_am_timmy" name="i_am_timmy" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="i_am_timmy" class="font-medium">I Am Timmy, Hear Me Roar</label>
+									<p class="text-zinc-400">Controlled a creature with 30 or more power.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="big_bigger_huge" name="big_bigger_huge" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="big_bigger_huge" class="font-medium">Big, Bigger, Huge</label>
+									<p class="text-zinc-400">Controlled a creature with at least twenty +1/+1 counters on it.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="close_but_no_cigar" name="close_but_no_cigar" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="close_but_no_cigar" class="font-medium">Close, but no cigar</label>
+									<p class="text-zinc-400">Won the game while at 1 life.</p>
+								</div>
+							</div>
+							<div class="relative flex gap-x-3">
+								<div class="flex items-center h-6">
+									<input id="just_as_garfield_intended" name="just_as_garfield_intended" value="true" type="checkbox" class="w-4 h-4 text-indigo-600 rounded border-zinc-300 focus:ring-indigo-600"/>
+								</div>
+								<div class="text-sm leading-6">
+									<label for="just_as_garfield_intended" class="font-medium">Just as Garfield intended</label>
+									<p class="text-zinc-400">Cast 10 or more creatures in a single turn.</p>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<button type="submit" class="flex inline-flex items-center justify-center h-10 px-4 py-2 text-base font-semibold no-underline truncate border border-transparent rounded-md shadow-lg text-zinc-400 hover:text-zinc-300 border-zinc-400 hover:border-zinc-300 border-zinc-300 disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
+						Post result
+					</button>
+				</div>
+			</form>
+		</div>
+	}
+}
