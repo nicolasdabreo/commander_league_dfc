@@ -2,8 +2,8 @@ package main
 
 import (
 	"dfc/db"
-	"dfc/handlers"
-	"dfc/services"
+	"dfc/handler"
+	"dfc/service"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -22,11 +22,14 @@ func main() {
 		e.Logger.Fatalf("failed to create store: %s", err)
 	}
 
-	playerService := services.NewPlayerServices(services.Player{}, store)
-	playerHandler := handlers.NewPlayerHandler(playerService)
+	playerService := service.NewPlayerServices(service.Player{}, store)
+	playerHandler := handler.NewPlayerHandler(playerService)
 
 	e.Static("/assets", "assets")
 	e.GET("/", playerHandler.LeaderboardHandler)
+	e.GET("/players/new", playerHandler.NewPlayerHandler)
+	e.GET("/players/:id", playerHandler.ShowPlayerHandler)
+	e.POST("/players", playerHandler.CreatePlayerHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
