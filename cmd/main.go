@@ -26,10 +26,14 @@ func main() {
 	playerHandler := handler.NewPlayerHandler(playerService)
 
 	e.Static("/assets", "assets")
+
 	e.GET("/", playerHandler.LeaderboardHandler)
 	e.GET("/players/new", playerHandler.NewPlayerHandler)
 	e.GET("/players/:id", playerHandler.ShowPlayerHandler)
 	e.POST("/players", playerHandler.CreatePlayerHandler)
+	// e.GET("/results/new", resultHandler.NewResultHandler)
+	// e.POST("/results", resultHandler.NewResultHandler)
+	// e.GET("/downloads/rulepack", fileHandler.rulepackHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
