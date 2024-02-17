@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DB_NAME string = "data/dfc.db"
+	DB_NAME string = "_data/dfc.db"
 )
 
 func main() {

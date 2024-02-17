@@ -1,11 +1,11 @@
 root = "."
-tmp_dir = "tmp"
+tmp_dir = "_build"
 
 [build]
-  bin = "./tmp/main"
-  cmd = "templ generate && go build -o ./tmp/main ./cmd/main.go"
+  bin = "./_build/main"
+  cmd = "templ generate && go build -o ./_build/main ./cmd/main.go"
   delay = 1000
-  exclude_dir = ["tmp", "vendor", "node_modules"]
+  exclude_dir = ["_build", "vendor", "node_modules"]
   exclude_file = []
   exclude_regex = [".*_templ.go"]
   exclude_unchanged = false
