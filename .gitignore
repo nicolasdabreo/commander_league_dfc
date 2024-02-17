@@ -5,3 +5,9 @@ tmp/
 *_templ.go
 node_modules
 output.css
+
+_data/
+_build/
+build/
+main
+

@@ -3,3 +3,9 @@
 **/dfc
 fly.toml
 data/
+
+_data/
+_build/
+build/
+main
+
