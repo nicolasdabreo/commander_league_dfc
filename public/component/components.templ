@@ -1,0 +1,80 @@
+package component
+
+templ Layout() {
+	<!DOCTYPE html>
+	<html
+		lang="en"
+		class="h-full scroll-smooth bg-zinc-900 antialiased [font-feature-settings:'ss01'] text-zinc-50"
+		style="scrollbar-gutter: stable;"
+	>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Season 1 - Commander League DFC</title>
+			<link rel="stylesheet" href="/assets/css/output.css"/>
+		</head>
+		<body class="">
+			{ children... }
+		</body>
+	</html>
+}
+
+templ Button() {
+	<button type="button" class="flex inline-flex items-center justify-center h-10 px-4 py-2 text-base font-semibold no-underline truncate bg-indigo-600 border border-transparent rounded-md shadow-lg text-zinc-400 hover:text-zinc-300 border-zinc-400 hover:border-zinc-300 border-zinc-300 disabled:text-zinc-400 disabled:bg-zinc-200 disabled:hover:bg-zinc-200 disabled:cursor-not-allowed focus-within:outline-none focus-within:ring-2 focus:ring-2 focus:outline-none focus:ring-zinc-300">
+		{ children... }
+	</button>
+}
+
+templ Submit() {
+	<button type="submit" class="">
+		{ children... }
+	</button>
+}
+
+templ Header() {
+	<header class="bg-zinc-800">
+		<nav class="flex items-center justify-between p-6 mx-auto max-w-7xl lg:px-8" aria-label="Global">
+			<div class="flex flex-1">
+				<div class="flex gap-x-12">
+					<a href="/downloads/rulepack" class="flex gap-2 text-sm font-semibold leading-6 ">
+						Rulepack
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</nav>
+		<div class="max-w-2xl p-8 mx-auto sm:p-10 lg:p-12">
+			<div class="mx-auto lg:mx-0">
+				<h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">DFC Commander League</h1>
+				<div class="grid grid-cols-2 gap-6 mt-4 sm:grid-cols-3">
+					<a
+						href="/players/new"
+						class="relative flex justify-center px-2 py-1 text-sm font-semibold leading-6 cursor-pointer pointer-select group rounded-2xl text-zinc-400 hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+					>
+						<span class="absolute inset-0 transition rounded-2xl bg-zinc-700 group-hover:bg-zinc-600 sm:group-hover:scale-105"></span>
+						<span class="relative flex flex-row items-center justify-center flex-shrink-0 h-20 gap-1 text-base">
+							New player
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
+							</svg>
+						</span>
+					</a>
+					<a
+						href="/results/new"
+						class="relative flex justify-center px-2 py-1 text-sm font-semibold leading-6 cursor-pointer pointer-select group rounded-2xl text-zinc-400 hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+					>
+						<span class="absolute inset-0 transition rounded-2xl bg-zinc-700 group-hover:bg-zinc-600 sm:group-hover:scale-105"></span>
+						<span class="relative flex flex-row items-center justify-center flex-shrink-0 h-20 gap-4 text-base">
+							Post result
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+								<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path>
+							</svg>
+						</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
+}

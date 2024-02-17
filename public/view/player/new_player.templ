@@ -1,0 +1,87 @@
+package player
+
+import (
+	"dfc/public/component"
+	"dfc/types"
+)
+
+templ Form(params types.PlayerParams) {
+	<form method="post" action="/players">
+		<div class="">
+			<label for="name" class="block text-sm font-medium leading-7">Player name</label>
+			<div class="mt-3">
+				<input id="name" name="name" type="text" autocomplete="name" placeholder="Name..." class="block w-full px-5 bg-zinc-800 py-2 rounded-md border-0 border-zinc-700 py-1.5 shadow-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+			</div>
+		</div>
+		<fieldset>
+			<legend class="text-sm font-semibold leading-7">Starter deck</legend>
+			<p class="mt-2 text-sm leading-6 text-zinc-400">This cannot be changed later</p>
+			<div class="space-y-6 mt-7">
+				<div class="">
+					<label for="token-triumph" class="flex items-center block text-sm font-medium leading-7 cursor-pointer gap-x-3">
+						<input value="tokens" id="token-triumph" name="deck" type="radio" class="w-5 h-4 text-indigo-600 border-zinc-300 focus:ring-indigo-600"/>
+						Token Triumph
+					</label>
+				</div>
+				<div class="">
+					<label for="grave-danger" class="flex items-center block text-sm font-medium leading-7 cursor-pointer gap-x-3">
+						<input value="zombies" id="grave-danger" name="deck" type="radio" class="w-5 h-4 text-indigo-600 border-zinc-300 focus:ring-indigo-600"/>
+						Grave Danger
+					</label>
+				</div>
+				<div class="">
+					<label for="dragonic-destruction" class="flex items-center block text-sm font-medium leading-7 cursor-pointer gap-x-3">
+						<input value="dragons" id="dragonic-destruction" name="deck" type="radio" class="w-5 h-4 text-indigo-600 border-zinc-300 focus:ring-indigo-600"/>
+						Draconic Destruction
+					</label>
+				</div>
+				<div class="">
+					<label for="chaos-incarnate" class="flex items-center block text-sm font-medium leading-7 cursor-pointer gap-x-3">
+						<input value="goad" id="chaos-incarnate" name="deck" type="radio" class="w-5 h-4 text-indigo-600 border-zinc-300 focus:ring-indigo-600"/>
+						Chaos Incarnate
+					</label>
+				</div>
+				<div class="">
+					<label for="first-flight" class="flex items-center block text-sm font-medium leading-7 cursor-pointer gap-x-3">
+						<input value="flying" id="first-flight" name="deck" type="radio" class="w-5 h-4 text-indigo-600 border-zinc-300 focus:ring-indigo-600"/>
+						First Flight
+					</label>
+				</div>
+			</div>
+		</fieldset>
+		@component.Submit() {
+			Create player
+		}
+	</form>
+}
+
+templ NewPlayer() {
+	@NewPlayerWithErrors(types.PlayerParams{}, types.PlayerErrors{})
+}
+
+templ NewPlayerWithErrors(params types.PlayerParams, errors types.PlayerErrors) {
+	@component.Layout() {
+		<div class="max-w-lg p-4 mx-auto sm:p-6 lg:p-8">
+			<div class="flex flex-col space-y-10 mt-11">
+				<h1 class="text-lg font-bold tracking-tight text-white sm:text-xl">New Player</h1>
+				@Flash(errors)
+				@Form(params)
+			</div>
+		</div>
+	}
+}
+
+templ Flash(errors types.PlayerErrors) {
+	<div class="p-5 rounded-md bg-red-50">
+		<div class="flex">
+			<div class="flex-shrink-1">
+				<svg class="w-6 h-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+					<path fill-rule="evenodd" d="M9 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"></path>
+				</svg>
+			</div>
+			<div class="ml-4">
+				<h2 class="text-sm font-medium text-red-800">Error message</h2>
+			</div>
+		</div>
+	</div>
+}
