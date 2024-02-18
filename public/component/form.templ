@@ -1,0 +1,46 @@
+package component
+
+type InputConfig struct {
+	ID          string
+	Name        string
+	Label       string
+	Value       string
+	Required    bool
+	Error       string
+	Placeholder string
+	Hint        string
+}
+
+templ TextInput(config InputConfig) {
+	<div>
+		@InputLabel(config.ID, config.Label, config.Hint)
+		<input
+			type="text"
+			name={ config.Name }
+			id={ config.ID }
+			value={ config.Value }
+			class={ inputClasses(config.Error) }
+			placeholder={ config.Placeholder }
+		/>
+		@InputError(config.ID, config.Error)
+	</div>
+}
+
+func inputClasses(err string) string {
+	if err != "" {
+		return "block w-full mt-2 rounded-lg border shadow-sm focus:ring-0 sm:text-sm sm:leading-6 bg-zinc-800 placeholder:text-zinc-400"
+	} else {
+		return "block w-full mt-2 rounded-lg border shadow-sm focus:ring-0 sm:text-sm sm:leading-6 bg-zinc-800 placeholder:text-zinc-400"
+	}
+}
+
+templ InputLabel(id string, label string, hint string) {
+	<label for={ id } class="block text-sm font-semibold leading-6">
+		{ label }
+	</label>
+	<p class="mt-1 mb-2 text-sm leading-6 text-zinc-400">{ hint }</p>
+}
+
+templ InputError(id string, msg string) {
+	<p class="flex gap-3 mt-2 text-sm leading-6 text-red-400">{ msg }</p>
+}

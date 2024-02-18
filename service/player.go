@@ -36,10 +36,14 @@ func (ps *PlayerServices) ListPlayersForLeague() ([]Player, error) {
 
 	players := []Player{}
 	for rows.Next() {
-		rows.Scan(&ps.Player.ID)
-
-		players = append(players, ps.Player)
+		var player Player
+		if err := rows.Scan(&player.ID, &player.Name, &player.Deck); err != nil {
+			return nil, err
+		}
+		players = append(players, player)
 	}
+
+	fmt.Println(players)
 
 	return players, nil
 }

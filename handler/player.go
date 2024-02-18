@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	lv "dfc/public/view/league"
 	pv "dfc/public/view/player"
 	"dfc/service"
@@ -50,10 +51,24 @@ func (ph *PlayerHandler) CreatePlayerHandler(c echo.Context) error {
 		Deck: c.FormValue("deck"),
 	}
 
-	_, err := ph.PlayerServices.CreatePlayer(params)
-	if err != nil {
-		return Render(c, pv.NewPlayerWithErrors(params, types.PlayerErrors{}))
+	if errs, hasErrs := params.Validate(); hasErrs {
+		setFlash(c, "error", "Check form for errors")
+		return Render(c, pv.NewPlayerWithErrors(params, errs))
+	}
+
+	if _, err := ph.PlayerServices.CreatePlayer(params); err != nil {
+		return Render(c, pv.NewPlayer())
 	}
 
 	return c.Redirect(302, "/")
+}
+
+func setFlash(c echo.Context, typ string, err string) {
+	ctx := c.Request().Context()
+	ctx = ctxWithFlash(ctx, typ, err)
+	c.SetRequest(c.Request().WithContext(ctx))
+}
+
+func ctxWithFlash(ctx context.Context, typ string, err string) context.Context {
+	return context.WithValue(ctx, typ, err)
 }
