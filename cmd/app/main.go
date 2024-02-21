@@ -25,13 +25,16 @@ func main() {
 	playerService := service.NewPlayerServices(service.Player{}, store)
 	playerHandler := handler.NewPlayerHandler(playerService)
 
+	resultService := service.NewResultServices(service.Result{}, store)
+	resultHandler := handler.NewResultHandler(resultService)
+
 	e.Static("/assets", "assets")
 
 	e.GET("/", playerHandler.LeaderboardHandler)
 	e.GET("/players/new", playerHandler.NewPlayerHandler)
 	e.GET("/players/:id", playerHandler.ShowPlayerHandler)
 	e.POST("/players", playerHandler.CreatePlayerHandler)
-	// e.GET("/results/new", resultHandler.NewResultHandler)
+	e.GET("/results/new", resultHandler.NewResultHandler)
 	// e.POST("/results", resultHandler.NewResultHandler)
 	// e.GET("/downloads/rulepack", fileHandler.rulepackHandler)
 

@@ -2,18 +2,18 @@ package league
 
 import (
 	"dfc/service"
-	"dfc/public/component"
+	"dfc/public/layout"
 	"fmt"
 )
 
 templ PlayerList(players []service.Player) {
 	<ul role="list" class="space-y-4">
-		for _, player := range players {
+		for i, player := range players {
 			<li class="relative inset-0 py-5 transition rounded-md shadow-lg group focus-within:bg-zinc-600 focus-within:ring-2 focus-within:ring-indigo-600 bg-zinc-700 hover:scale-105 hover:bg-zinc-600">
 				<div class="px-4 sm:px-6 lg:px-8">
 					<div class="flex justify-between max-w-4xl px-2 mx-auto gap-x-12">
 						<div class="flex min-w-0 gap-x-8">
-							<span class="inline-flex items-center justify-center text-lg truncate"></span>
+							<span class="inline-flex items-center justify-center text-lg truncate">{ Ordinal(i+1) }</span>
 							<div class="flex-auto min-w-0">
 								<p class="text-lg font-bold leading-6">
 									<a href={ templ.SafeURL(fmt.Sprint("/players/", player.ID)) } class="outline-none">
@@ -37,8 +37,7 @@ templ PlayerList(players []service.Player) {
 }
 
 templ Index(players []service.Player) {
-	@component.Layout() {
-		@component.Header()
+	@layout.Leaderboard() {
 		<div class="max-w-2xl px-12 mx-auto my-6 sm:px-14 lg:px-20">
 			@PlayerList(players)
 		</div>

@@ -6,20 +6,20 @@ run:
 	air -c ./.air.toml
 
 build:
-	echo "build"
+	@go build -o _build/main cmd/app/main.go
 
 up: 
-	echo "up"
+	@go run cmd/migrate/main.go up
 
 down:
-	echo "down"
+	@go run cmd/migrate/main.go down
 
 seed: 
-	echo "seed"
+	@migrate create -ext sql -dir cmd/migrate/migrations $(filter-out $@,$(MAKECMDGOALS))
 
 drop:
-	echo "drop"
+	@go run cmd/drop/main.go
 
 reset:
-	echo "reset"
+	@go run cmd/seed/main.go
 
