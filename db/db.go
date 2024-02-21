@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -11,8 +12,8 @@ type Store struct {
 	Db *sql.DB
 }
 
-func NewStore(dbName string) (Store, error) {
-	Db, err := getConnection(dbName)
+func NewStore() (Store, error) {
+	Db, err := getConnection()
 
 	if err != nil {
 		return Store{}, err
@@ -23,7 +24,7 @@ func NewStore(dbName string) (Store, error) {
 	}, nil
 }
 
-func getConnection(dbName string) (*sql.DB, error) {
+func getConnection() (*sql.DB, error) {
 	var (
 		err error
 		db  *sql.DB
@@ -33,7 +34,12 @@ func getConnection(dbName string) (*sql.DB, error) {
 		return db, nil
 	}
 
-	db, err = sql.Open("sqlite3", dbName)
+	sqlitePath, envSet := os.LookupEnv("SQLITE_PATH")
+	if !envSet {
+		log.Fatal("🔥 Environment variable SQLITE_PATH not set")
+	}
+
+	db, err = sql.Open("sqlite3", sqlitePath)
 	if err != nil {
 		log.Fatalf("🔥 failed to connect to the database: %s", err.Error())
 	}
@@ -42,4 +48,3 @@ func getConnection(dbName string) (*sql.DB, error) {
 
 	return db, nil
 }
-

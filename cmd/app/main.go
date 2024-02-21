@@ -9,15 +9,11 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-const (
-	DB_NAME string = "_data/dfc.db"
-)
-
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 
-	store, err := db.NewStore(DB_NAME)
+	store, err := db.NewStore()
 	if err != nil {
 		e.Logger.Fatalf("failed to create store: %s", err)
 	}
