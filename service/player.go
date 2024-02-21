@@ -43,8 +43,6 @@ func (ps *PlayerServices) ListPlayersForLeague() ([]Player, error) {
 		players = append(players, player)
 	}
 
-	fmt.Println(players)
-
 	return players, nil
 }
 
