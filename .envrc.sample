@@ -1,0 +1,10 @@
+export REPLACE_OS_VARS=true
+
+## Required
+
+export SQLITE_PATH="_data/dev.db"
+
+## Optional
+
+export LOG_LEVEL=info
+export PORT=8080
